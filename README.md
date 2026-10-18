@@ -33,8 +33,8 @@ The **belief ribbon** at the top is also the time machine: drag it, use the arro
 Needs Python 3.10+ and Node 18+.
 
 ```bash
-git clone https://github.com/Sharank874/regime-radar.git
-cd regime-radar
+git clone https://github.com/Sharank874/Regime-Radar.git
+cd Regime-Radar
 pip install -r requirements.txt
 cd web && npm install && npm run build && cd ..
 
