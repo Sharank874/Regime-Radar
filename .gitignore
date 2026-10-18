@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+data/
+web/node_modules/
+web/dist/
+web/dist-static/
+web/static-public/
+*.tsbuildinfo
+.DS_Store

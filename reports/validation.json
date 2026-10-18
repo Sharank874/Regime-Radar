@@ -1,0 +1,360 @@
+{
+  "generated_utc": "2026-10-18T23:15:30+00:00",
+  "mode": "live",
+  "version": "rr-1.1",
+  "data_fingerprint": "d4eb235fc2d97d67",
+  "provenance": {
+    "source": "Yahoo Finance via yfinance; news via GDELT DOC 2.0 + RSS",
+    "series": {
+      "nifty": {
+        "ticker": "^NSEI",
+        "rows": 4682,
+        "first": "2007-09-17",
+        "last": "2026-10-16",
+        "downloaded_utc": "2026-10-18T21:03:25+00:00"
+      },
+      "india_vix": {
+        "ticker": "^INDIAVIX",
+        "rows": 4563,
+        "first": "2008-03-03",
+        "last": "2026-10-16",
+        "downloaded_utc": "2026-10-18T21:03:25+00:00"
+      },
+      "spx": {
+        "ticker": "^GSPC",
+        "rows": 4802,
+        "first": "2007-09-17",
+        "last": "2026-10-16",
+        "downloaded_utc": "2026-10-18T21:03:26+00:00"
+      },
+      "us_vix": {
+        "ticker": "^VIX",
+        "rows": 4804,
+        "first": "2007-09-17",
+        "last": "2026-10-16",
+        "downloaded_utc": "2026-10-18T21:03:27+00:00"
+      }
+    }
+  },
+  "config": {
+    "horizon": 5,
+    "stress_quantile": 0.8,
+    "n_states": 3,
+    "hmm_features": [
+      "ret",
+      "log_rv5",
+      "log_vix",
+      "vix_chg5"
+    ],
+    "hmm_news_feature": "news_stress",
+    "hmm_inits": 6,
+    "hmm_iter": 150,
+    "hmm_sticky": 50.0,
+    "clf_features": [
+      "p_stress",
+      "p_calm",
+      "log_rv5",
+      "log_rv22",
+      "rv_ratio",
+      "dd252",
+      "mom20",
+      "log_vix",
+      "vix_chg5",
+      "vrp",
+      "spx_ret_lag",
+      "spx_absret_lag"
+    ],
+    "clf_news_features": [
+      "news_stress",
+      "news_tone",
+      "news_surprise_max"
+    ],
+    "clf_C": 0.5,
+    "n_bootstrap": 25,
+    "block_len": 20,
+    "min_train_years": 5,
+    "first_test_year": 2014,
+    "news_first_year": 2017,
+    "seed": 7
+  },
+  "target": "1 if annualised realised vol over the next 5 sessions exceeds the 80th percentile of the training window",
+  "v0": {
+    "features": [
+      "ret",
+      "rv22",
+      "mom20",
+      "ma50_dist",
+      "dd252"
+    ],
+    "cluster_sizes": [
+      1780,
+      254,
+      2599
+    ],
+    "shuffled_cv_accuracy": {
+      "random_forest": 0.9762540031280256,
+      "svm": 0.99
+    },
+    "future_label_chronological": {
+      "horizon_days": 5,
+      "random_forest_accuracy": 0.7876169906407487,
+      "random_forest_balanced_accuracy": 0.7756335385393827,
+      "persistence_accuracy": 0.7854571634269258,
+      "persistence_balanced_accuracy": 0.7814566115702479
+    },
+    "verdict": "Shuffled cross-validation on K-Means labels mainly measures how well a classifier can redraw the K-Means boundaries from the same features, so very high accuracy is expected and is not evidence of forecasting. Predicting the label in the future with a chronological split, and comparing with the naive 'regime stays the same' rule, is the meaningful test."
+  },
+  "v1": {
+    "table": {
+      "p_model": {
+        "n": 3138,
+        "base_rate": 0.07552581261950286,
+        "pr_auc": 0.5250887470959353,
+        "roc_auc": 0.8677380271898094,
+        "brier": 0.04952684816207314,
+        "log_loss": 0.1830265061092749,
+        "brier_skill": 0.2906664615384289
+      },
+      "p_gbm": {
+        "n": 3138,
+        "base_rate": 0.07552581261950286,
+        "pr_auc": 0.5277997177729495,
+        "roc_auc": 0.8526930187029935,
+        "brier": 0.049501305846065435,
+        "log_loss": 0.19478010239264734,
+        "brier_skill": 0.29103228375540013
+      },
+      "p_vix": {
+        "n": 3138,
+        "base_rate": 0.07552581261950286,
+        "pr_auc": 0.45883175765743456,
+        "roc_auc": 0.8547765429351437,
+        "brier": 0.053388139724025924,
+        "log_loss": 0.19386981878268755,
+        "brier_skill": 0.23536426266421884
+      },
+      "p_har": {
+        "n": 3138,
+        "base_rate": 0.07552581261950286,
+        "pr_auc": 0.4021775034611569,
+        "roc_auc": 0.829518993159641,
+        "brier": 0.0584088180182728,
+        "log_loss": 0.2096367534250296,
+        "brier_skill": 0.163457092470769
+      },
+      "p_garch": {
+        "n": 3138,
+        "base_rate": 0.07552581261950286,
+        "pr_auc": 0.40981847724003745,
+        "roc_auc": 0.8274565587015682,
+        "brier": 0.05855901521916658,
+        "log_loss": 0.2116103404943039,
+        "brier_skill": 0.16130593777527202
+      },
+      "p_clim": {
+        "n": 3138,
+        "base_rate": 0.07552581261950286,
+        "pr_auc": 0.07293307092571409,
+        "roc_auc": 0.46782209539268427,
+        "brier": 0.0853399837561036,
+        "log_loss": 0.3279210646967849,
+        "brier_skill": -0.22225651129413726
+      }
+    },
+    "names": {
+      "p_model": "Regime Radar (HMM + logistic)",
+      "p_gbm": "Gradient boosting (same features)",
+      "p_vix": "India VIX only",
+      "p_har": "HAR-RV",
+      "p_garch": "GARCH(1,1)",
+      "p_clim": "Base rate (climatology)"
+    },
+    "best_baseline": "p_vix",
+    "model_minus_har_brier": {
+      "diff": -0.008881969856199663,
+      "ci90": [
+        -0.013377994854920585,
+        -0.005741885682443918
+      ],
+      "n": 3138
+    },
+    "model_minus_best_brier": {
+      "diff": -0.0038612915619527857,
+      "ci90": [
+        -0.007539663968656461,
+        -0.0011376589552311105
+      ],
+      "n": 3138
+    },
+    "status": "pass",
+    "verdict": "PASS \u2014 beats every baseline including the best one",
+    "by_year": [
+      {
+        "p_model": 0.005524165119891544,
+        "p_vix": 0.015489155921355826,
+        "p_har": 0.004680055712388251,
+        "p_clim": 0.04261095534389244,
+        "year": 2014,
+        "stress_rate": 0.004166666666666667
+      },
+      {
+        "p_model": 0.060063257352321445,
+        "p_vix": 0.05729529525914103,
+        "p_har": 0.06251531309872478,
+        "p_clim": 0.07695234600196575,
+        "year": 2015,
+        "stress_rate": 0.06147540983606557
+      },
+      {
+        "p_model": 0.025952622737363797,
+        "p_vix": 0.025509736858076008,
+        "p_har": 0.03148129335983738,
+        "p_clim": 0.05732158262116115,
+        "year": 2016,
+        "stress_rate": 0.028688524590163935
+      },
+      {
+        "p_model": null,
+        "p_vix": null,
+        "p_har": null,
+        "p_clim": null,
+        "year": 2017,
+        "stress_rate": 0.0
+      },
+      {
+        "p_model": 0.03109920848392532,
+        "p_vix": 0.036296471837372786,
+        "p_har": 0.037215536542773014,
+        "p_clim": 0.06451645569768719,
+        "year": 2018,
+        "stress_rate": 0.04081632653061224
+      },
+      {
+        "p_model": 0.04596426442163271,
+        "p_vix": 0.04535326559291277,
+        "p_har": 0.05947832661636322,
+        "p_clim": 0.07238733141748811,
+        "year": 2019,
+        "stress_rate": 0.05394190871369295
+      },
+      {
+        "p_model": 0.11663425787503257,
+        "p_vix": 0.13845058303823865,
+        "p_har": 0.12678451155703283,
+        "p_clim": 0.21280000000000004,
+        "year": 2020,
+        "stress_rate": 0.288
+      },
+      {
+        "p_model": 0.09915071763326165,
+        "p_vix": 0.10285354976331422,
+        "p_har": 0.10808554799031372,
+        "p_clim": 0.11741935483870972,
+        "year": 2021,
+        "stress_rate": 0.12903225806451613
+      },
+      {
+        "p_model": 0.1022648858702061,
+        "p_vix": 0.10849727295308093,
+        "p_har": 0.12053134184791056,
+        "p_clim": 0.12710979476967035,
+        "year": 2022,
+        "stress_rate": 0.14516129032258066
+      },
+      {
+        "p_model": null,
+        "p_vix": null,
+        "p_har": null,
+        "p_clim": null,
+        "year": 2023,
+        "stress_rate": 0.0
+      },
+      {
+        "p_model": 0.04866993726124065,
+        "p_vix": 0.04353653541082985,
+        "p_har": 0.06863673171317637,
+        "p_clim": 0.0741315392322335,
+        "year": 2024,
+        "stress_rate": 0.056910569105691054
+      },
+      {
+        "p_model": 0.038154197096436464,
+        "p_vix": 0.03565096506339247,
+        "p_har": 0.04123658712000262,
+        "p_clim": 0.06414305256005629,
+        "year": 2025,
+        "stress_rate": 0.040160642570281124
+      },
+      {
+        "p_model": 0.07154968687191562,
+        "p_vix": 0.08965027159081818,
+        "p_har": 0.1049666416900442,
+        "p_clim": 0.1252578497721666,
+        "year": 2026,
+        "stress_rate": 0.14210526315789473
+      }
+    ],
+    "calibration": [
+      {
+        "p_mean": 0.0032454138636973384,
+        "y_rate": 0.0031847133757961785,
+        "n": 314
+      },
+      {
+        "p_mean": 0.006152117275597408,
+        "y_rate": 0.0031847133757961785,
+        "n": 314
+      },
+      {
+        "p_mean": 0.00867067690254885,
+        "y_rate": 0.012738853503184714,
+        "n": 314
+      },
+      {
+        "p_mean": 0.01159403209037936,
+        "y_rate": 0.012779552715654952,
+        "n": 313
+      },
+      {
+        "p_mean": 0.01572384700157281,
+        "y_rate": 0.044585987261146494,
+        "n": 314
+      },
+      {
+        "p_mean": 0.023235396272439767,
+        "y_rate": 0.01910828025477707,
+        "n": 314
+      },
+      {
+        "p_mean": 0.03634812931584394,
+        "y_rate": 0.051118210862619806,
+        "n": 313
+      },
+      {
+        "p_mean": 0.06615764049222699,
+        "y_rate": 0.05732484076433121,
+        "n": 314
+      },
+      {
+        "p_mean": 0.12930465169632233,
+        "y_rate": 0.12738853503184713,
+        "n": 314
+      },
+      {
+        "p_mean": 0.4130808608267275,
+        "y_rate": 0.42356687898089174,
+        "n": 314
+      }
+    ],
+    "period": [
+      "2014-01-02",
+      "2026-10-16"
+    ]
+  },
+  "v2": {
+    "status": "insufficient",
+    "news_days": 0,
+    "verdict": "NOT RUN \u2014 not enough news history. Run `python -m radar news-backfill` (GDELT timelines go back to 2017) and re-run validation."
+  },
+  "use_news_in_production": false
+}
